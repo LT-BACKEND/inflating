@@ -4,8 +4,5 @@
 # UP REPO UBUNTU
 <pre><code>apt update && apt upgrade -y && update-grub && sleep 2 && reboot</pre></code>
 
-### INSTALL SCRIPT 
-<pre><code>sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/setup/proxyvpnscript/main.sh && chmod +x main.sh && ./main.sh
-
-
-</code></pre>
+###  PROXYVPN 1
+<pre><code>sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/setup/proxyvpnscript/main.sh && chmod +x main.sh && ./main.sh</code></pre>
