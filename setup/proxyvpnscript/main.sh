@@ -529,9 +529,9 @@ EOF
 systemctl daemon-reload
 systemctl restart trip
 systemctl enable trip
-mkdir -p /usr/local/kyt/
-wget -q -O /usr/local/kyt/udp-mini "${REPO}Fls/udp-mini"
-chmod +x /usr/local/kyt/udp-mini
+mkdir -p /usr/local/lunatic/
+wget -q -O /usr/local/lunatic/udp-mini "${REPO}Fls/udp-mini"
+chmod +x /usr/local/lunatic/udp-mini
 wget -q -O /etc/systemd/system/udp-mini-1.service "${REPO}Fls/udp-mini-1.service"
 wget -q -O /etc/systemd/system/udp-mini-2.service "${REPO}Fls/udp-mini-2.service"
 wget -q -O /etc/systemd/system/udp-mini-3.service "${REPO}Fls/udp-mini-3.service"
@@ -614,7 +614,7 @@ clear
 print_install "Memasang Backup Server"
 apt install rclone -y
 printf "q\n" | rclone config
-wget -O /root/.config/rclone/rclone.conf "${REPO}Cfg/rclone.conf"
+wget rclone.conf "${REPO}Cfg/rclone.conf"
 cd /bin
 git clone  https://github.com/LT-BACKEND/wondershaper.git
 cd wondershaper
@@ -775,6 +775,7 @@ cat >/etc/cron.d/logclean <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 */10 * * * * root /usr/local/sbin/clearlog
+0 */2 * * * root /usr/local/sbin/backup.sh
 END
 chmod 644 /root/.profile
 cat >/etc/cron.d/daily_reboot <<-END
@@ -871,6 +872,7 @@ rm -rf /root/*.sh
 rm -rf /root/LICENSE
 rm -rf /root/README.md
 rm -rf /root/domain
+rm -rf /root/main.sh
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname $username
 clear
