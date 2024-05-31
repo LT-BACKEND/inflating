@@ -351,18 +351,19 @@ mkdir -p /usr/bin/xray/
 mkdir -p /var/log/xray/
 mkdir -p /var/www/html
 # // Repo Data limit ip
-mkdir -p /etc/LT/files/vmess/ip
-mkdir -p /etc/LT/files/vless/ip
-mkdir -p /etc/LT/files/trojan/ip
-mkdir -p /etc/LT/files/ssh/ip
-mkdir -p /etc/LT/files/noobzvpns/ip
-mkdir -p /etc/LT/files/shadowsocks/ip
+mkdir -p /etc/lunatic/limit/vmess/ip
+mkdir -p /etc/lunatic/limit/vless/ip
+mkdir -p /etc/lunatic/limit/trojan/ip
+mkdir -p /etc/lunatic/limit/ssh/ip
+mkdir -p /etc/lunatic/limit/noobzvpns/ip
+mkdir -p /etc/lunatic/limit/shadowsocks/ip
 # // Repo All protocol
-mkdir -p /etc/files/vmess
-mkdir -p /etc/files/vless
-mkdir -p /etc/files/trojan
-mkdir -p /etc/files/ssh
-mkdir -p /etc/files/noobzvpns
+mkdir -p /etc/limit/vmess
+mkdir -p /etc/limit/vless
+mkdir -p /etc/limit/trojan
+mkdir -p /etc/limit/ssh
+mkdir -p /etc/limit/noobzvpns
+mkdir -p /etc/limit/shadowsocks
 chmod +x /var/log/xray
 # // Buat Folder
 touch /etc/xray/domain
@@ -552,7 +553,7 @@ print_success "files Quota Service"
 function ssh_slow(){
 clear
 print_install "Memasang modul SlowDNS Server"
-wget -q -O slowdns.sh https://raw.githubusercontent.com/LunaticBackend/regip/mytich/SLDNS/slowdns.sh && chmod +x slowdns.sh && ./slowdns.sh
+wget -q -O slowdns.sh https://raw.githubusercontent.com/LT-BACKEND/memek/Dns/slowdns.sh && chmod +x slowdns.sh && ./slowdns.sh
 wget -q -O /tmp/nameserver "${REPO}Dns/nameserver" >/dev/null 2>&1
 chmod +x /tmp/nameserver
 bash /tmp/nameserver | tee /root/install.log
