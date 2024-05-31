@@ -2,7 +2,12 @@
 apt upgrade -y
 apt update -y
 apt install curls
+apt install curl
 apt install wondershaper -y
+apt install rclone -y
+apt install dialog -y
+apt install yum -y
+
 Green="\e[92;1m"
 RED="\033[1;31m"
 YELLOW="\033[33m"
