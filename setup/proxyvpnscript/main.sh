@@ -352,6 +352,11 @@ mkdir -p /etc/trojan
 mkdir -p /etc/shadowsocks
 mkdir -p /etc/ssh
 mkdir -p /etc/noobzvpns
+mkdir -p /etc/wireguard
+mkdir -p /etc/pptp
+mkdir -p /etc/sstp
+mkdir -p /etc/l2tp
+mkdir -p /etc/udp
 mkdir -p /usr/bin/xray/
 mkdir -p /var/log/xray/
 mkdir -p /var/www/html
@@ -362,6 +367,7 @@ mkdir -p /etc/lunatic/limit/trojan/ip
 mkdir -p /etc/lunatic/limit/ssh/ip
 mkdir -p /etc/lunatic/limit/noobzvpns/ip
 mkdir -p /etc/lunatic/limit/shadowsocks/ip
+mkdir -p /etc/lunatic/limit/udp/ip
 # // Repo All protocol
 mkdir -p /etc/limit/vmess
 mkdir -p /etc/limit/vless
@@ -369,6 +375,11 @@ mkdir -p /etc/limit/trojan
 mkdir -p /etc/limit/ssh
 mkdir -p /etc/limit/noobzvpns
 mkdir -p /etc/limit/shadowsocks
+mkdir -p /etc/limit/sstp
+mkdir -p /etc/limit/pptp
+mkdir -p /etc/limit/l2tp
+mkdir -p /etc/limit/wireguard
+mkdir -p /etc/limit/udp
 chmod +x /var/log/xray
 # // Buat Folder
 touch /etc/xray/domain
@@ -381,12 +392,22 @@ touch /etc/shadowsocks/.shadowsocks.db
 touch /etc/noobzvpns/.noobzvpns.db
 touch /etc/ssh/.ssh.db
 touch /etc/bot/.bot.db
+touch /etc/wireguard/.wireguard.db
+touch /etc/sstp/.sstp.db
+touch /etc/pptp/.pptp.db
+touch /etc/l2tp/.l2tp.db
+touch /etc/udp/.udp.db
 echo "& plughin Account" >>/etc/vmess/.vmess.db
 echo "& plughin Account" >>/etc/vless/.vless.db
 echo "& plughin Account" >>/etc/trojan/.trojan.db
 echo "& plughin Account" >>/etc/shadowsocks/.shadowsocks.db
 echo "& plughin Account" >>/etc/ssh/.ssh.db
 echo "& plughin Account" >>/etc/noobzvpns/.noobzvpns.db
+echo "& plughin Account" >>/etc/wireguard/.wireguard.db
+echo "& plughin Account" >>/etc/sstp/.sstp.db
+echo "& plughin Account" >>/etc/pptp/.pptp.db
+echo "& plughin Account" >>/etc/l2tp/.l2tp.db
+echo "& plughin Account" >>/etc/udp/.udp.db
 }
 function install_xray() {
 clear
@@ -842,6 +863,12 @@ systemctl restart haproxy
 print_success "Enable Service"
 clear
 }
+function ipsec_install(){
+wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/ipsec/ipsec.sh && chmod +x ipsec.sh && ./ipsec.sh
+}
+function wireguard_install(){
+wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Wg/wg.sh && chmod +x wg.sh && ./wg.sh
+}
 function instal(){
 clear
 first_setup
@@ -868,6 +895,8 @@ menu
 profile
 enable_services
 restart_system
+ipsec_install
+wireguard_install
 }
 instal
 echo ""
