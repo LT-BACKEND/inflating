@@ -869,6 +869,9 @@ wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/ipsec/ipsec.sh && chmod
 function wireguard_install(){
 wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Wg/wg.sh && chmod +x wg.sh && ./wg.sh
 }
+function sstp_install(){
+wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/sstp/sstp.sh && chmod +x sstp.sh && ./sstp.sh
+}
 function instal(){
 clear
 first_setup
@@ -897,6 +900,7 @@ enable_services
 restart_system
 ipsec_install
 wireguard_install
+sstp_install
 }
 instal
 echo ""
