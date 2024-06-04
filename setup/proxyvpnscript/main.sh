@@ -29,6 +29,9 @@ KEY="6763081805:AAHr1zrISZfyn1OxthFGcdU65Y45O2P0o4U"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 clear
 export IP=$( curl -sS icanhazip.com )
+export PATH=$PATH:/usr/bin/manager
+echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.bashrc
+echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.profile.
 clear
 clear && clear && clear
 clear;clear;clear
@@ -778,7 +781,7 @@ print_install "INSTALLING MENU.ZIP"
 mkdir -p /usr/bin/manager
 wget ${MENUREPO}inflating_vpn_dote_zip/menu.zip
 unzip menu.zip
-chmod +x -R menu/*
+chmod +x menu/*
 mv menu/* /usr/bin/manager
 #mv menu/* /usr/local/sbin
 rm -rf menu
