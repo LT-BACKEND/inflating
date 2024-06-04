@@ -775,10 +775,12 @@ print_success "All Packet"
 function menu(){
 clear
 print_install "INSTALLING MENU.ZIP"
+mkdir -p /usr/bin/manager
 wget ${MENUREPO}inflating_vpn_dote_zip/menu.zip
 unzip menu.zip
-chmod +x menu/*
-mv menu/* /usr/local/sbin
+chmod +x -R menu/*
+mv menu/* /usr/bin/manager
+#mv menu/* /usr/local/sbin
 rm -rf menu
 rm -rf menu.zip
 }
@@ -793,16 +795,21 @@ fi
 mesg n || true
 welcome
 EOF
-cat >/etc/cron.d/xp_all <<-END
+cat >/etc/cron.d/xp <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-2 0 * * * root /usr/local/sbin/xp
+0 */2 * * * root /usr/local/sbin/xp
+15 * * * root /usr/local/sbin/mullog
+
 END
 cat >/etc/cron.d/logclean <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 */10 * * * * root /usr/local/sbin/clearlog
-0 */2 * * * root /usr/local/sbin/backup.sh
+0 */2 * * * root /usr/local/sbin/backup
+0 */2 * * * root /usr/local/sbin/autobackup
+0 */2 * * * root /usr/local/sbin/m-autobackup
+0 */2 * * * root /usr/local/sbin/m-backup
 END
 chmod 644 /root/.profile
 cat >/etc/cron.d/daily_reboot <<-END
@@ -912,6 +919,10 @@ rm -rf /root/LICENSE
 rm -rf /root/README.md
 rm -rf /root/domain
 rm -rf /root/main.sh
+rm -rf /root/wg.sh
+rm -rf /root/ipsec.sh
+rm -rf /root/rclone.conf
+rm -rf /root/noobzvpns.zip
 secs_to_human "$(($(date +%s) - ${start}))"
 sudo hostnamectl set-hostname $username
 clear
