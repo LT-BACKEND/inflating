@@ -1,13 +1,14 @@
 #!/bin/bash
 apt upgrade -y
 apt update -y
-apt install curls
-apt install curl
+apt install curls -y
+apt install curl -y
 apt install wondershaper -y
 apt install rclone -y
 apt install dialog -y
 apt install yum -y
-
+apt install wireguard -y
+apt install openvpn -y
 Green="\e[92;1m"
 RED="\033[1;31m"
 YELLOW="\033[33m"
@@ -305,11 +306,11 @@ TEXT="
 <code>────────────────────</code>
 <b> 🟢 NOTIFICATIONS INSTALL 🟢</b>
 <code>────────────────────</code>
-<code>ID       : </code><code>$USRSC</code>
+<code>ID     : </code><code>$USRSC</code>
 <code>Host   : </code><code>$domain</code>
-<code>Date    : </code><code>$TIME</code>
+<code>Date   : </code><code>$TIME</code>
 <code>Times  : </code><code>$TIMEZONE</code>
-<code>Ip vps  : </code><code>$ipsaya</code>
+<code>Ip vps : </code><code>$ipsaya</code>
 <code>Exp Sc : </code><code>$EXPSC</code>
 <code>────────────────────</code>
 <i>Automatic Notification from Github</i>
@@ -384,8 +385,10 @@ mkdir -p /etc/limit/l2tp
 mkdir -p /etc/limit/wireguard
 mkdir -p /etc/limit/udp
 chmod +x /var/log/xray
+mkdir -p /etc/slowdns
 # // Buat Folder
 touch /etc/xray/domain
+touch /etc/slowdns/ns
 touch /var/log/xray/access.log
 touch /var/log/xray/error.log
 touch /etc/vmess/.vmess.db
@@ -523,7 +526,7 @@ Description=My
 ProjectAfter=network.target
 [Service]
 WorkingDirectory=/root
-ExecStart=/usr/bin/files-ip vmip
+ExecStart=/usr/bin/limit-ip vmip
 Restart=always
 [Install]
 WantedBy=multi-user.target
@@ -531,13 +534,14 @@ EOF
 systemctl daemon-reload
 systemctl restart vmip
 systemctl enable vmip
+systemctl start vmip
 cat >/etc/systemd/system/vlip.service << EOF
 [Unit]
 Description=My
 ProjectAfter=network.target
 [Service]
 WorkingDirectory=/root
-ExecStart=/usr/bin/files-ip vlip
+ExecStart=/usr/bin/limit-ip vlip
 Restart=always
 [Install]
 WantedBy=multi-user.target
@@ -545,13 +549,14 @@ EOF
 systemctl daemon-reload
 systemctl restart vlip
 systemctl enable vlip
+systemctl start vlip
 cat >/etc/systemd/system/trip.service << EOF
 [Unit]
 Description=My
 ProjectAfter=network.target
 [Service]
 WorkingDirectory=/root
-ExecStart=/usr/bin/files-ip trip
+ExecStart=/usr/bin/limit-ip trip
 Restart=always
 [Install]
 WantedBy=multi-user.target
@@ -559,8 +564,8 @@ EOF
 systemctl daemon-reload
 systemctl restart trip
 systemctl enable trip
-mkdir -p /usr/local/lunatic/
-wget -q -O /usr/local/lunatic/udp-mini "${REPO}Fls/udp-mini"
+systemctl start trip
+wget -q -O /etc/systemd/system/udp-mini "${REPO}Fls/udp-mini"
 chmod +x /usr/local/lunatic/udp-mini
 wget -q -O /etc/systemd/system/udp-mini-1.service "${REPO}Fls/udp-mini-1.service"
 wget -q -O /etc/systemd/system/udp-mini-2.service "${REPO}Fls/udp-mini-2.service"
@@ -651,6 +656,7 @@ cd wondershaper
 sudo make install
 cd
 rm -rf wondershaper
+mkdir -p /home/files
 echo > /home/files
 apt install msmtp-mta ca-certificates bsd-mailx -y
 cat<<EOF>>/etc/msmtprc
@@ -752,6 +758,9 @@ print_install "Restarting  All Packet"
 /etc/init.d/ssh restart
 /etc/init.d/dropbear restart
 /etc/init.d/fail2ban restart
+/etc/systemd/system/vmip restart
+/etc/systemd/system/vlip restart
+/etc/systemd/system/trip restart
 /etc/init.d/vnstat restart
 systemctl restart haproxy
 /etc/init.d/cron restart
@@ -874,13 +883,13 @@ print_success "Enable Service"
 clear
 }
 function ipsec_install(){
-wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/ipsec/ipsec.sh && chmod +x ipsec.sh && ./ipsec.sh
+wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/ipsec/ipsec.sh" && chmod +x ipsec.sh && ./ipsec.sh
 }
 function wireguard_install(){
-wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Wg/wg.sh && chmod +x wg.sh && ./wg.sh
+wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Wg/wg.sh" && chmod +x wg.sh && ./wg.sh
 }
 function sstp_install(){
-wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/sstp/sstp.sh && chmod +x sstp.sh && ./sstp.sh
+wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/sstp/sstp.sh" && chmod +x sstp.sh && ./sstp.sh
 }
 function instal(){
 clear
@@ -914,6 +923,9 @@ sstp_install
 }
 instal
 echo ""
+export PATH=$PATH:/usr/bin/manager
+echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.bashrc
+echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.profile.
 history -c
 rm -rf /root/menu
 rm -rf /root/*.zip
