@@ -533,7 +533,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-
 systemctl daemon-reload
 systemctl restart vmip
 systemctl enable vmip
@@ -550,7 +549,6 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-
 systemctl daemon-reload
 systemctl restart vlip
 systemctl enable vlip
@@ -567,11 +565,44 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
-
 systemctl daemon-reload
 systemctl restart trip
 systemctl enable trip
 systemctl start trip
+
+cat >/etc/systemd/system/trip.service << EOF
+[Unit]
+Description=My
+ProjectAfter=network.target
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limit-ip ssip
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl restart ssip
+systemctl enable ssip
+systemctl start ssip
+
+cat >/etc/systemd/system/ipssh.service << EOF
+[Unit]
+Description=My
+ProjectAfter=network.target
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limitssh-ip ipssh
+Restart=always
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl daemon-reload
+systemctl restart ipssh
+systemctl enable ipssh
+systemctl start ipssh
+
 wget -q -O /etc/systemd/system/udp-mini "${REPO}Fls/udp-mini"
 chmod +x /usr/local/lunatic/udp-mini
 wget -q -O /etc/systemd/system/udp-mini-1.service "${REPO}Fls/udp-mini-1.service"
