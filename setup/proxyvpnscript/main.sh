@@ -9,6 +9,7 @@ apt install dialog -y
 apt install yum -y
 apt install wireguard -y
 apt install openvpn -y
+apt install at -y
 Green="\e[92;1m"
 RED="\033[1;31m"
 YELLOW="\033[33m"
@@ -520,6 +521,7 @@ cd /usr/bin
 sed -i 's/\r//' limit-ip
 cd
 clear
+
 cat >/etc/systemd/system/vmip.service << EOF
 [Unit]
 Description=My
@@ -531,10 +533,12 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl daemon-reload
 systemctl restart vmip
 systemctl enable vmip
 systemctl start vmip
+
 cat >/etc/systemd/system/vlip.service << EOF
 [Unit]
 Description=My
@@ -546,10 +550,12 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl daemon-reload
 systemctl restart vlip
 systemctl enable vlip
 systemctl start vlip
+
 cat >/etc/systemd/system/trip.service << EOF
 [Unit]
 Description=My
@@ -561,6 +567,7 @@ Restart=always
 [Install]
 WantedBy=multi-user.target
 EOF
+
 systemctl daemon-reload
 systemctl restart trip
 systemctl enable trip
@@ -809,32 +816,71 @@ welcome
 EOF
 cat >/etc/cron.d/xp <<-END
 SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-0 */2 * * * root /usr/local/sbin/xp
-15 * * * root /usr/local/sbin/mullog
+PATH=/usr/bin/manager:/usr/bin/bin:/manager:/bin:/usr/manager:/usr/bin
+0 */2 * * * root /usr/bin/manager/xp
+*/1 * * * * root /usr/bin/manager/mullog
+END
 
-END
-cat >/etc/cron.d/logclean <<-END
+cat >/etc/cron.d/lock-xray-ip <<-END
 SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-*/10 * * * * root /usr/local/sbin/clearlog
-0 */2 * * * root /usr/local/sbin/backup
-0 */2 * * * root /usr/local/sbin/autobackup
-0 */2 * * * root /usr/local/sbin/m-autobackup
-0 */2 * * * root /usr/local/sbin/m-backup
+PATH=/usr/bin/manager:/usr/bin/bin:/manager:/bin:/usr/manager:/usr/bin
+*/1 * * * root /usr/bin/manager/lock-xray-ip
 END
+
+cat >/etc/cron.d/autobackup <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/bin/bin:/manager:/bin:/usr/manager:/usr/bin
+*/1 * * * root /usr/bin/manager/autobackup
+END
+
+cat >/etc/cron.d/limit-ip <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/bin/bin:/manager:/bin:/usr/manager:/usr/bin
+*/1 * * * root /usr/bin/manager/limit-ip
+END
+
+cat >/etc/cron.d/killtrial <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/bin:/manager:/bin:/usr/manager:/usr/bin
+*/45 * * * root /usr/bin/manager/killtrial
+END
+
+
+cat >/etc/cron.d/autobackup <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/bin/manager:/bin:/manager:/usr/bin:/usr/bin
+*/10 * * * * root /usr/bin/manager/clearlog
+0 */2 * * * root /usr/bin/manager/backup
+0 */2 * * * root /usr/bin/manager/autobackup
+0 */2 * * * root /usr/bin/manager/m-autobackup
+0 */2 * * * root /usr/bin/manager/m-backup
+END
+
 chmod 644 /root/.profile
 cat >/etc/cron.d/daily_reboot <<-END
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 5 * * * root /sbin/reboot
 END
+
 echo "*/1 * * * * root echo -n > /var/log/nginx/access.log" >/etc/cron.d/log.nginx
 echo "*/1 * * * * root echo -n > /var/log/xray/access.log" >>/etc/cron.d/log.xray
 service cron restart
 cat >/home/daily_reboot <<-END
-5
 END
+
+cat >/etc/cron.d/limitssh-ip <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/local/manager:/manager:/bin:/usr/manager:/usr/bin
+*/1 * * * * root /usr/bin/manager/limitssh-ip
+END
+
+cat >/etc/cron.d/lock-xray-ip <<-END
+SHELL=/bin/sh
+PATH=/usr/bin/manager:/usr/local/manager:/manager:/bin:/usr/manager:/usr/bin
+*/1 * * * * root /usr/bin/manager/lock-xray-ip
+END
+
 cat >/etc/systemd/system/rc-local.service <<EOF
 [Unit]
 Description=/etc/rc.local
