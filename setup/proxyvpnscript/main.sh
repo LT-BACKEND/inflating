@@ -1,4 +1,9 @@
 #!/bin/bash
+apt install at
+sudo apt-get update
+sudo apt-get install at
+sudo systemctl start atd
+sudo systemctl enable atd
 apt upgrade -y
 apt update -y
 apt install curls -y
@@ -9,7 +14,6 @@ apt install dialog -y
 apt install yum -y
 apt install wireguard -y
 apt install openvpn -y
-apt install at -y
 Green="\e[92;1m"
 RED="\033[1;31m"
 YELLOW="\033[33m"
