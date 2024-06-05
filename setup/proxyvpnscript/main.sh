@@ -516,9 +516,11 @@ print_install "Memasang Service limit Quota"
 wget raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Fls/limit.sh && chmod +x limit.sh && ./limit.sh
 cd
 wget -q -O /usr/bin/limit-ip "${REPO}Fls/limit-ip"
+wget -q -O /usr/bin/limitssh-ip "${REPO}Fls/limitssh-ip"
 chmod +x /usr/bin/*
 cd /usr/bin
 sed -i 's/\r//' limit-ip
+sed -i 's/\r//' limitssh-ip
 cd
 clear
 
