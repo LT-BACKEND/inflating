@@ -11,4 +11,4 @@
 <pre><code>sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/main.py : python3 main.py</code></pre>
 
 ### Test installer
-sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/x && chmod +x x && ./x
+wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/x && chmod +x x && ./x
