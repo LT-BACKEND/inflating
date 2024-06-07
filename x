@@ -1,5 +1,6 @@
 #!/bin/bash
 sudo apt-get install gnupg -y && sudo apt install iptables && wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/setup/proxyvpnscript/setup.sh
+clear
 echo ""
 echo -e "\033[37;1m┌─────────────────────────────────────────────────┐\033[0m "
 echo -e "\e[33;1m│\e[0m \033[44;1;97;1m                LUNATIC TUNNELING              \033[0m \e[33;1m│\e[0m"
