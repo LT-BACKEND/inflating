@@ -5,4 +5,4 @@
 <pre><code>apt update && apt upgrade -y && update-grub && sleep 2 && reboot</pre></code>
 
 ### installer
-wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/x && chmod +x x && ./x
+<pre><code>wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/x && chmod +x x && ./x</code></pre>
