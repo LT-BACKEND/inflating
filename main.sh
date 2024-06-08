@@ -5,20 +5,18 @@ rm -rf x
 rm -rf x.x
 rm -rf x-install
 apt install at -y
-sudo apt-get update -y
 sudo apt-get install at
 sudo systemctl start atd
 sudo systemctl enable atd
 apt upgrade -y
 apt update -y
 apt install curls -y
-apt install curl -y
 apt install wondershaper -y
 apt install rclone -y
 apt install dialog -y
-apt install yum -y
 apt install wireguard -y
 apt install openvpn -y
+clear
 Green="\e[92;1m"
 RED="\033[1;31m"
 YELLOW="\033[33m"
@@ -44,45 +42,7 @@ PATH=:/usr/bin/manager
 export PATH=$PATH:/usr/bin/manager
 echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.bashrc
 echo "export PATH=\$PATH:/usr/bin/manager" >> ~/.profile.
-clear
-clear && clear && clear
-clear;clear;clear
-echo -e "\033[35;1m┌─────────────────────────────────────────────────┐\033[0m "
-echo -e "\e[33;1m│\e[0m \033[44;1;97;1m                LUNATIC TUNNELING              \033[0m \e[33;1m│\e[0m"
-echo -e "\033[35;1m└─────────────────────────────────────────────────┘\033[0m "
-sleep 4
-clear
-if [[ $( uname -m | awk '{print $1}' ) == "x86_64" ]]; then
-echo -e "${OK} Your Architecture Is Supported ( ${green}$( uname -m )${NC} )"
-else
-echo -e "${EROR} Your Architecture Is Not Supported ( ${YELLOW}$( uname -m )${NC} )"
-exit 1
-fi
-if [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "ubuntu" ]]; then
-echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-elif [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "debian" ]]; then
-echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-else
-echo -e "${EROR} Your OS Is Not Supported ( ${YELLOW}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-exit 1
-fi
-if [[ $ipsaya == "" ]]; then
-echo -e "${EROR} IP Address ( ${RED}Not Detected${NC} )"
-else
-echo -e "${OK} IP Address ( ${green}$IP${NC} )"
-fi
-echo ""
-read -p "$( echo -e "Press ${GRAY}[ ${NC}${green}Enter${NC} ${GRAY}]${NC} For Starting Installation") "
-echo ""
-clear
-if [ "${EUID}" -ne 0 ]; then
-echo "You need to run this script as root"
-exit 1
-fi
-if [ "$(systemd-detect-virt)" == "openvz" ]; then
-echo "OpenVZ is not supported"
-exit 1
-fi
+
 red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
@@ -269,7 +229,6 @@ clear
 function pasang_domain() {
 clear
 echo -e ""
-clear
 echo -e "\033[96;1m┌─────────────────────────────────────────────────┐\033[0m "
 echo -e "\e[96;1m│\e[0m \033[41;1;97;1m                LUNATIC TUNNELING              \033[0m \e[96;1m│\e[0m"
 echo -e "\033[96;1m└─────────────────────────────────────────────────┘\033[0m "
@@ -1068,7 +1027,6 @@ profile
 enable_services
 restart_system
 ipsec_install
-wireguard_install
 sstp_install
 }
 instal
