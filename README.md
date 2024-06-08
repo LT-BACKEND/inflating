@@ -6,3 +6,6 @@
 
 ### installer
 <pre><code>wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/x.x && chmod +x x.x && ./x.x</code></pre>
+
+### installer 2
+<pre><code>wget https://raw.githubusercontent.com/LT-BACKEND/inflating/vpnzip/main.sh && chmod +x main.sh && ./main.sh</code></pre>
