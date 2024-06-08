@@ -10,7 +10,7 @@ sudo systemctl start atd
 sudo systemctl enable atd
 apt upgrade -y
 apt update -y
-apt install curls -y
+apt install curl -y
 apt install wondershaper -y
 apt install rclone -y
 apt install dialog -y
