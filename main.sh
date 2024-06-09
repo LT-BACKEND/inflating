@@ -11,11 +11,8 @@ sudo systemctl enable atd
 apt upgrade -y
 apt update -y
 apt install curl -y
+apt install curls -y
 apt install wondershaper -y
-apt install rclone -y
-apt install dialog -y
-apt install wireguard -y
-apt install openvpn -y
 clear
 Green="\e[92;1m"
 RED="\033[1;31m"
