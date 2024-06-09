@@ -692,7 +692,7 @@ clear
 function ins_openvpn(){
 clear
 print_install "Menginstall OpenVPN"
-wget ${REPO}Vpn/openvpn &&  chmod +x openvpn && ./openvpn
+wget ${REPO}Fls/openvpn &&  chmod +x openvpn && ./openvpn
 /etc/init.d/openvpn restart
 print_success "OpenVPN"
 }
@@ -979,25 +979,6 @@ systemctl restart haproxy
 print_success "Enable Service"
 clear
 }
-
-clear
-function ipsec_install(){
-clear
-wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/ipsec/ipsec.sh" && chmod +x ipsec.sh && ./ipsec.sh
-}
-
-clear
-function wireguard_install(){
-clear
-wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/Wg/wg.sh" && chmod +x wg.sh && ./wg.sh
-}
-
-clear
-function sstp_install(){
-clear
-wget -q "https://raw.githubusercontent.com/LT-BACKEND/proxyvpn/memek/sstp/sstp.sh" && chmod +x sstp.sh && ./sstp.sh
-}
-
 clear
 function instal(){
 clear
@@ -1026,8 +1007,6 @@ menu
 profile
 enable_services
 restart_system
-ipsec_install
-sstp_install
 }
 instal
 echo ""
